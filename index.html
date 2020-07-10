@@ -1,18 +1,1218 @@
+
 <!doctype html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TicTacToe</title>
-    <style>
-      #root {
-        width: 600px;
-        height: 600px;
-      }
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>AD Group Api</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
     </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="stylesheets/screen-0552a3ae.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-dd99858b.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-e9bde216.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
   </head>
-  <body>
-    <div id='root'>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <div class="logo-wrap">
+        <img src="images/logo-a33d1d60.svg" class="logo-wrap__logo" alt="" />
+      </div>
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="ruby">ruby</a>
+              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#methods" class="toc-h1 toc-link" data-title="Methods">Methods</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#bill-payments-invoice-generation" class="toc-h2 toc-link" data-title="Bill Payments Invoice generation">Bill Payments Invoice generation</a>
+                  </li>
+                  <li>
+                    <a href="#merchants-wallets-list" class="toc-h2 toc-link" data-title="Merchants Wallets List">Merchants Wallets List</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </ul>
     </div>
-    <script src="bundle.js"></script>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>AD Ggoup API description</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight ruby tab-ruby"><code>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+</code></pre></div>
+<blockquote>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+</blockquote>
+
+<p>Description</p>
+<h1 id='methods'>Methods</h1><h2 id='bill-payments-invoice-generation'>Bill Payments Invoice generation</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span></code></pre></div>
+<p>API to create bill payment invoices.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST Base URL+/bill-payment/invoice/create</code></p>
+<h3 id='headers'>Headers</h3>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Params</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>HEADER</td>
+<td>Content-Type</td>
+<td>string application/json</td>
+</tr>
+<tr>
+<td>HEADER</td>
+<td>Authorization</td>
+<td>string Basic Token. Will be given to you.</td>
+</tr>
+</tbody></table>
+<h3 id='raw-body'>Raw Body</h3>
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Params</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>header</td>
+<td>txName</td>
+<td>string CreateBillInvoice</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>amount</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>address</td>
+<td>String (Not required for Qiwi Wallet Payment.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Required for card Payment, the last 4 digits of Card.)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>platform</td>
+<td>string Strictly: QIWI</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>currency</td>
+<td>String Transaction currency that is supported. Currently we are supporting RUB</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>ip</td>
+<td>String (Required. I.P. address should be of User who is completing the payment).</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>client</td>
+<td>String (QIWI WALLET NUMBER/CARD which MUST specify exchange user at the stage of creating an exchange request.)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>recipient</td>
+<td>String (Identifier in the recipient system. If it is bank card then the card number,</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>if it is BTC then BTC wallet address where bitcoin will be sent. If it is Yandex - then YA wallet number)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>c_from</td>
+<td>String (Currency from - use Codes of electronic currencies from https://www.bestchange.ru/wiki/rates.html to specify source currency for exchange)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>c_to</td>
+<td>String (Currency to - use Codes of electronic currencies from https://www.bestchange.ru/wiki/rates.html to specify destination currency for exchange)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>date</td>
+<td>String (Date of transaction 2019-01-15T10:04:59)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>txn</td>
+<td>String (Number of exchange requests/order in exchange system)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>user_agent</td>
+<td>String (Client User Agent Id)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>email</td>
+<td>String (Client Email)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>cid</td>
+<td>String (id of user in exchange system)</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>extra</td>
+<td>Array (array of object containing extra information )</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>paySource</td>
+<td>String ( Not mandatory , paySource can be qw,card,mobile,sovest )</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>qw -- payment source will be qiwi wallet</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>card -- payment source will be card</td>
+</tr>
+</tbody></table>
+<h2 id='merchants-wallets-list'>Merchants Wallets List</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span></code></pre></div>
+<p>List of all wallets currently assigned to the Merchant.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST Base URL+ /merchant/get-wallet-list</code></p>
+<h3 id='headers-2'>Headers</h3>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Params</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>HEADER</td>
+<td>Content-Type</td>
+<td>string application/json</td>
+</tr>
+<tr>
+<td>HEADER</td>
+<td>Authorization</td>
+<td>string Basic Token. Will be given to you.</td>
+</tr>
+</tbody></table>
+<h3 id='raw-body-2'>Raw Body</h3>
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Params</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>header</td>
+<td>txName</td>
+<td>string fetchWallets</td>
+</tr>
+<tr>
+<td>reqData</td>
+<td>provider (optional)</td>
+<td>string:[QIWI,YANDEX]</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Default: will get both wallets</td>
+</tr>
+</tbody></table>
+<h1 id='errors'>Errors</h1>
+<p>Below listed are all the error codes that you may encounter along with their corresponding messages</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ERR000</td>
+<td>Undefined error</td>
+</tr>
+<tr>
+<td>ERR001</td>
+<td>field is required</td>
+</tr>
+<tr>
+<td>ERR004</td>
+<td>Entity Not exist</td>
+</tr>
+<tr>
+<td>ERR009</td>
+<td>Login required</td>
+</tr>
+<tr>
+<td>ERR011</td>
+<td>Phone number is already exist</td>
+</tr>
+<tr>
+<td>ERR012</td>
+<td>Coupon is not available for you</td>
+</tr>
+<tr>
+<td>ERR013</td>
+<td>Required data type format mismatch</td>
+</tr>
+<tr>
+<td>ERR014</td>
+<td>Too small input value required</td>
+</tr>
+<tr>
+<td>ERR015</td>
+<td>User not found</td>
+</tr>
+<tr>
+<td>ERR017</td>
+<td>Invalid credentials</td>
+</tr>
+<tr>
+<td>ERR019</td>
+<td>Service not available</td>
+</tr>
+<tr>
+<td>ERR021</td>
+<td>Delete user action failed</td>
+</tr>
+<tr>
+<td>ERR022</td>
+<td>Not a valid format</td>
+</tr>
+<tr>
+<td>ERR023</td>
+<td>Please use a valid transaction type</td>
+</tr>
+<tr>
+<td>ERR024</td>
+<td>Email already exist</td>
+</tr>
+<tr>
+<td>ERR025</td>
+<td>Invalid activation link or email is already verified</td>
+</tr>
+<tr>
+<td>ERR026</td>
+<td>Username already used by someone else</td>
+</tr>
+<tr>
+<td>ERR028</td>
+<td>Email id is not verified, verify and try again</td>
+</tr>
+<tr>
+<td>ERR029</td>
+<td>Mobile number is not verified</td>
+</tr>
+<tr>
+<td>ERR030</td>
+<td>Invalid account type</td>
+</tr>
+<tr>
+<td>ERR032</td>
+<td>Username/email/telephone is already registered with system</td>
+</tr>
+<tr>
+<td>ERR036</td>
+<td>Access Denied</td>
+</tr>
+<tr>
+<td>ERR037</td>
+<td>Invalid password</td>
+</tr>
+<tr>
+<td>ERR038</td>
+<td>Password is expired or not valid</td>
+</tr>
+<tr>
+<td>ERR039</td>
+<td>Activation link is expired</td>
+</tr>
+<tr>
+<td>ERR040</td>
+<td>Expired OTP</td>
+</tr>
+<tr>
+<td>ERR041</td>
+<td>Email or mobile number is not verified</td>
+</tr>
+<tr>
+<td>ERR042</td>
+<td>Requested currency conversion not possible</td>
+</tr>
+<tr>
+<td>ERR043</td>
+<td>Currency code not available</td>
+</tr>
+<tr>
+<td>ERR046</td>
+<td>Destination account not exist</td>
+</tr>
+<tr>
+<td>ERR047</td>
+<td>Destination account is not operational</td>
+</tr>
+<tr>
+<td>ERR048</td>
+<td>Insufficient fund in source account</td>
+</tr>
+<tr>
+<td>ERR049</td>
+<td>Amount is not valid for transfer</td>
+</tr>
+<tr>
+<td>ERR051</td>
+<td>Transfer is not supported</td>
+</tr>
+<tr>
+<td>ERR052</td>
+<td>Failed to retrieve applicable Tariff rate</td>
+</tr>
+<tr>
+<td>ERR053</td>
+<td>Failed to retrieve applicable Tariff account for deduction purpose</td>
+</tr>
+<tr>
+<td>ERR054</td>
+<td>QIWI sync with wallet failed, please try again after some time</td>
+</tr>
+<tr>
+<td>ERR055</td>
+<td>User is blocked and hence barred from transactions.</td>
+</tr>
+<tr>
+<td>ERR056</td>
+<td>Wallet already exists. Please edit existing entry instead of creating new one</td>
+</tr>
+<tr>
+<td>ERR057</td>
+<td>Merchant does not have any wallet assigned. Kindly check later.</td>
+</tr>
+<tr>
+<td>ERR058</td>
+<td>Merchant wallet is currently cannot be topped up due to limits. Contact merchant.</td>
+</tr>
+<tr>
+<td>ERR059</td>
+<td>Source and destination should not be same</td>
+</tr>
+<tr>
+<td>ERR060</td>
+<td>Kindly update your application to latest version</td>
+</tr>
+<tr>
+<td>ERR061</td>
+<td>User id not found for this particular merchant</td>
+</tr>
+<tr>
+<td>ERR062</td>
+<td>User Account(s) not found</td>
+</tr>
+<tr>
+<td>ERR063</td>
+<td>Insufficient balance in User Account(s)</td>
+</tr>
+<tr>
+<td>ERR064</td>
+<td>Merchant Account(s) not found</td>
+</tr>
+<tr>
+<td>ERR065</td>
+<td>Insufficient balance in Merchant Account(s)</td>
+</tr>
+<tr>
+<td>ERR066</td>
+<td>Requested search criteria returned empty</td>
+</tr>
+<tr>
+<td>ERR067</td>
+<td>Server side technical issue occurred</td>
+</tr>
+<tr>
+<td>ERR068</td>
+<td>Qiwi Agent details not setup by Admin</td>
+</tr>
+<tr>
+<td>ERR069</td>
+<td>Only Admin has permission to do Wallet Topups</td>
+</tr>
+<tr>
+<td>ERR070</td>
+<td>Invalid OTP</td>
+</tr>
+<tr>
+<td>ERR071</td>
+<td>Wallet Token is invalid, please check token and resync by saving</td>
+</tr>
+<tr>
+<td>ERR072</td>
+<td>Wallet not found</td>
+</tr>
+<tr>
+<td>ERR073</td>
+<td>Failed to generate Qiwi Transaction number</td>
+</tr>
+<tr>
+<td>ERR074</td>
+<td>No qualifiable wallets found for this merchant.</td>
+</tr>
+<tr>
+<td></td>
+<td>VV Note: This error will occur for multiple conditions</td>
+</tr>
+<tr>
+<td></td>
+<td>1. Incase you have no wallets assigned to Merchant</td>
+</tr>
+<tr>
+<td></td>
+<td>2. Incase all current wallets are inactive or facing problems</td>
+</tr>
+<tr>
+<td></td>
+<td>3. Incase all current wallets are at max balance capacity</td>
+</tr>
+<tr>
+<td>ERR075</td>
+<td>Can not transfer fund into same currency</td>
+</tr>
+<tr>
+<td>ERR076</td>
+<td>Currency not supported</td>
+</tr>
+<tr>
+<td>ERR077</td>
+<td>Merchant not found</td>
+</tr>
+<tr>
+<td>ERR078</td>
+<td>Transaction is already approved</td>
+</tr>
+<tr>
+<td>ERR079</td>
+<td>Transaction is already rejected</td>
+</tr>
+<tr>
+<td>ERR080</td>
+<td>Transaction is not confirmed</td>
+</tr>
+<tr>
+<td>ERR081</td>
+<td>Currency is not supported</td>
+</tr>
+<tr>
+<td>ERR082</td>
+<td>Failed write to Database for creating P2P invoice order</td>
+</tr>
+<tr>
+<td>ERR083</td>
+<td>QIWI System P2P API Failed</td>
+</tr>
+<tr>
+<td>ERR084</td>
+<td>Phone number for P2P Transfer not found</td>
+</tr>
+<tr>
+<td>ERR085</td>
+<td>Error occurred during performing outward BTC External Transaction</td>
+</tr>
+<tr>
+<td>ERR086</td>
+<td>Tariff Account does not have sufficient balance(inclusive fees) for completing this payout</td>
+</tr>
+<tr>
+<td>ERR087</td>
+<td>No Tariff Accounts found</td>
+</tr>
+<tr>
+<td>ERR088</td>
+<td>Only admins have the required privileges to perform this operation</td>
+</tr>
+<tr>
+<td>ERR089</td>
+<td>Error while trying to generate ExMo Coupon, kindly contact admin</td>
+</tr>
+<tr>
+<td>ERR090</td>
+<td>No ExMo credentials found for this merchant</td>
+</tr>
+<tr>
+<td>ERR091</td>
+<td>Email address is already used by other account, you can link your card by signing in with this email &amp; password and link from my cards menu</td>
+</tr>
+<tr>
+<td>ERR092</td>
+<td>Only partial amount for P2P was transferred</td>
+</tr>
+<tr>
+<td>ERR093</td>
+<td>Error while syncing RUB currency conversion rates</td>
+</tr>
+<tr>
+<td>ERR094</td>
+<td>Currency conversion site is down, please try again later</td>
+</tr>
+<tr>
+<td>ERR095</td>
+<td>Invalid Response from coupon generation side</td>
+</tr>
+<tr>
+<td>ERR096</td>
+<td>QIWI Push amount is insufficient to deduct the applicable tariff for this Invoice</td>
+</tr>
+<tr>
+<td>ERR097</td>
+<td>No password found for this account, please set a password before attempting transaction</td>
+</tr>
+<tr>
+<td>ERR098</td>
+<td>Merchant not found for this particular email address</td>
+</tr>
+<tr>
+<td>ERR099</td>
+<td>Assigned wallet with zero balance not found, make sure wallet is empty</td>
+</tr>
+<tr>
+<td>ERR100</td>
+<td>Requested number of wallets are unavailable, please try a lower limit</td>
+</tr>
+<tr>
+<td>ERR101</td>
+<td>Request parameters are missing in your request</td>
+</tr>
+<tr>
+<td>ERR102</td>
+<td>Wallet with valid telephone number found but its token has expired(Cannot perform QIWI api calls)</td>
+</tr>
+<tr>
+<td>ERR103</td>
+<td>Ticket not found, Ticket could have already been processed</td>
+</tr>
+<tr>
+<td>ERR104</td>
+<td>No receiving wallet found for provided destination phone number</td>
+</tr>
+<tr>
+<td>ERR105</td>
+<td>No qualifying QIWI transactions found for submitted Ticket Details</td>
+</tr>
+<tr>
+<td>ERR106</td>
+<td>Ticket information not found, check if Ticket has been modified or deleted</td>
+</tr>
+<tr>
+<td>ERR107</td>
+<td>Failed to update Account balance, aborting transaction processing</td>
+</tr>
+<tr>
+<td>ERR108</td>
+<td>Transaction has already been processed and is not in initial state</td>
+</tr>
+<tr>
+<td>ERR109</td>
+<td>Insufficient wallet balance in selected wallet currently, likely due to Wallet being used for performing transaction recently</td>
+</tr>
+<tr>
+<td>ERR110</td>
+<td>Failed in creating invoice for specified details</td>
+</tr>
+<tr>
+<td>ERR111</td>
+<td>Failed to pay generated Invoice</td>
+</tr>
+<tr>
+<td>ERR112</td>
+<td>Tariff account does not have sufficient balance to fund this transaction</td>
+</tr>
+<tr>
+<td>ERR113</td>
+<td>Failure to retrieve Invoice Id from QIWI for completing payment</td>
+</tr>
+<tr>
+<td>ERR114</td>
+<td>Multiple wallet records detected, please contact your Database Admin</td>
+</tr>
+<tr>
+<td>ERR115</td>
+<td>Wallet not found, If you are trying to add a new wallet. Please add token in Wallets Pool</td>
+</tr>
+<tr>
+<td>ERR116</td>
+<td>QIWI System P2Card API call unsuccessful</td>
+</tr>
+<tr>
+<td>ERR117</td>
+<td>User group configuration not valid, please contact admin for proper group assignment</td>
+</tr>
+<tr>
+<td>ERR118</td>
+<td>Platform currently not supported</td>
+</tr>
+<tr>
+<td>ERR119</td>
+<td>Failed to fetch Merchant Qiwi wallet balance</td>
+</tr>
+<tr>
+<td>ERR120</td>
+<td>Topup Wallet api failed to respond</td>
+</tr>
+<tr>
+<td>ERR121</td>
+<td>Database Error, failed to generate next Qiwi Transaction Id</td>
+</tr>
+<tr>
+<td>ERR122</td>
+<td>Merchant does not have Qiwi Agent credentials</td>
+</tr>
+<tr>
+<td>ERR123</td>
+<td>Insufficient balance in System&#39;s Qiwi agent account</td>
+</tr>
+<tr>
+<td>ERR124</td>
+<td>Failed to write status of your topup request</td>
+</tr>
+<tr>
+<td>ERR125</td>
+<td>Merchant does not have necessary credentials for generating invoice</td>
+</tr>
+<tr>
+<td>ERR126</td>
+<td>Failed to write status of your generate invoice request</td>
+</tr>
+<tr>
+<td>ERR127</td>
+<td>Invalid Agent credentials provided</td>
+</tr>
+<tr>
+<td>ERR128</td>
+<td>Database error, failed to retrieve information. Please contact Admin with request info</td>
+</tr>
+<tr>
+<td>ERR129</td>
+<td>Database write failed. Please contact Admin with request info</td>
+</tr>
+<tr>
+<td>ERR130</td>
+<td>Wallet credentials not found for this Merchant, please set Id and secret before retrying.</td>
+</tr>
+<tr>
+<td>ERR131</td>
+<td>Authorize Wallet API call failed, Authentication code not generated</td>
+</tr>
+<tr>
+<td>ERR132</td>
+<td>Fetch Token API call failed, Bearer Token not generated</td>
+</tr>
+<tr>
+<td>ERR133</td>
+<td>Total wallets Balance is currently/will go under selected Merchant&#39;s Balance. Transaction Denied.</td>
+</tr>
+<tr>
+<td>ERR134</td>
+<td>Transaction amount has crossed threshold of Total payable amount.</td>
+</tr>
+<tr>
+<td>ERR135</td>
+<td>Failed to generate next sequence in Wallet series</td>
+</tr>
+<tr>
+<td>ERR136</td>
+<td>Unknown QIWI Transfer type for Outgoing transfer, please contact Admin.</td>
+</tr>
+<tr>
+<td>ERR137</td>
+<td>Failed to fetch payout limits for requested merchant, please contact Admin.</td>
+</tr>
+<tr>
+<td>ERR138</td>
+<td>Invalid Protocol specified for Outgoing QIWI wallet transaction. Internal Error.</td>
+</tr>
+<tr>
+<td>ERR139</td>
+<td>Failed to detect Card Provider ID, make sure Card Number is valid.</td>
+</tr>
+<tr>
+<td>ERR140</td>
+<td>Failed to get Card Provider ID from QIWI API response.</td>
+</tr>
+<tr>
+<td>ERR141</td>
+<td>Detected Card does not fall under Russian Bank Cards category, Transaction Rejected.</td>
+</tr>
+<tr>
+<td>ERR142</td>
+<td>Transaction amount is lower than specified minimum limit for this Merchant. Transaction Rejected.</td>
+</tr>
+<tr>
+<td>ERR143</td>
+<td>Transaction amount is higher than specified maximum limit for this Merchant. Transaction Rejected.</td>
+</tr>
+<tr>
+<td>ERR144</td>
+<td>Special Skip comment detected, Transaction not to be processed.</td>
+</tr>
+<tr>
+<td>ERR145</td>
+<td>QIWI API</td>
+</tr>
+<tr>
+<td>ERR146</td>
+<td>QIWI API</td>
+</tr>
+<tr>
+<td>ERR147</td>
+<td>QIWI API</td>
+</tr>
+<tr>
+<td>ERR148</td>
+<td>QIWI API</td>
+</tr>
+<tr>
+<td>ERR149</td>
+<td>Request Rejected. Fetch limit exceeded, try again with a lower amount of transactions</td>
+</tr>
+<tr>
+<td>ERR150</td>
+<td>QIWI API</td>
+</tr>
+<tr>
+<td>ERR151</td>
+<td>Amount to be updated for balance is invalid. Contact admin with Request Info.</td>
+</tr>
+<tr>
+<td>ERR152</td>
+<td>Invalid Response received for API, unable to determine whether sucess or failure. Contact Admin please.</td>
+</tr>
+<tr>
+<td>ERR153</td>
+<td>Insufficient parameters passed to function, unable to continue with execution.</td>
+</tr>
+<tr>
+<td>ERR154</td>
+<td>Invoice creation failed please check the parameters you passed.</td>
+</tr>
+<tr>
+<td>ERR155</td>
+<td>No active wallet provider found for given search criteria.</td>
+</tr>
+<tr>
+<td>ERR156</td>
+<td>Error while calling Internet Banking API services</td>
+</tr>
+<tr>
+<td>ERR157</td>
+<td>Insufficient money in your account to cover tariff charges for this transaction</td>
+</tr>
+<tr>
+<td>ERR158</td>
+<td>Insufficient money in Merchant account to cover tariff charges for this transaction</td>
+</tr>
+<tr>
+<td>ERR159</td>
+<td>Invalid provider field supplied, Unable to generate Invoice.</td>
+</tr>
+<tr>
+<td>ERR160</td>
+<td>Failed to register invoice for Internet banking</td>
+</tr>
+<tr>
+<td>ERR161</td>
+<td>Invalid response received from Internet Banking provider</td>
+</tr>
+<tr>
+<td>ERR201</td>
+<td>Destination Address is blacklisted. Order request rejected.</td>
+</tr>
+<tr>
+<td>GAM001</td>
+<td>Not a trusted caller</td>
+</tr>
+<tr>
+<td>GAM002</td>
+<td>User not found for address</td>
+</tr>
+<tr>
+<td>GAM003</td>
+<td>Already approved</td>
+</tr>
+<tr>
+<td>GAM004</td>
+<td>User not found</td>
+</tr>
+<tr>
+<td>GAM005</td>
+<td>Insufficient balance</td>
+</tr>
+<tr>
+<td>GAM006</td>
+<td>Invalid password/pin</td>
+</tr>
+<tr>
+<td>GAM007</td>
+<td>Amount is not valid for transfer</td>
+</tr>
+<tr>
+<td>GAM008</td>
+<td>User is blocked from performing transactions</td>
+</tr>
+<tr>
+<td>GAM009</td>
+<td>Entered amount is too small, make sure its above 0.001</td>
+</tr>
+<tr>
+<td>GAM010</td>
+<td>Entered amount is too small, make sure its above 1</td>
+</tr>
+<tr>
+<td>GAM011</td>
+<td>Entered amount is too small, make sure its above 0.0001</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="ruby">ruby</a>
+                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
   </body>
 </html>
