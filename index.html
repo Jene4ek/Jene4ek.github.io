@@ -423,14 +423,72 @@
 <li>Если нет ошибок - нажимаем кнопку <code>SAVE</code>
 <img src="images/addwebhook/step4-8c5e1107.png" alt="step 4" /></li>
 </ol>
-<h1 id='methods'>Methods</h1><h2 id='bill-payments-invoice-generation'>Bill Payments Invoice generation</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<h1 id='methods'>Methods</h1><h2 id='bill-payments-invoice-generation'>Bill Payments Invoice generation</h2><div class="highlight"><pre class="highlight php tab-php"><code>  <span class="kn">use</span> <span class="nn">GuzzleHttp\Client</span><span class="p">;</span>
+
+  <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">();</span>
+
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+    <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="s1">'https://api.adgroup.finance/bill-payment/invoice/create'</span><span class="p">,</span>
+    <span class="p">[</span>
+      <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'Basic ajczMERmYUQzbkpYSzdvajp0U2pUZDE3RUFLYlVRcEUzbEhKcTdObktvM0FUQ08='</span><span class="p">,</span>
+        <span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+      <span class="p">],</span>
+      <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'header'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="s1">'txName'</span> <span class="o">=&gt;</span> <span class="s1">'CreateBillInvoice'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'reqData'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="s1">'amount'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+          <span class="s1">'platform'</span> <span class="o">=&gt;</span> <span class="s1">'QIWI'</span><span class="p">,</span>
+          <span class="s1">'currency'</span> <span class="o">=&gt;</span> <span class="s1">'RUB'</span><span class="p">,</span>
+          <span class="s1">'ip'</span> <span class="o">=&gt;</span> <span class="s1">'123.456.78.0'</span><span class="p">,</span>
+          <span class="s1">'client'</span> <span class="o">=&gt;</span> <span class="s1">'71234567890'</span><span class="p">,</span>
+          <span class="s1">'recipient'</span> <span class="o">=&gt;</span> <span class="s1">'5769621113467254'</span><span class="p">,</span>
+          <span class="s1">'c_from'</span> <span class="o">=&gt;</span> <span class="s1">'RUB'</span><span class="p">,</span>
+          <span class="s1">'c_to'</span> <span class="o">=&gt;</span> <span class="s1">'ADRUB'</span><span class="p">,</span>
+          <span class="s1">'date'</span> <span class="o">=&gt;</span> <span class="s1">'2020-07-20T06:58:46.662Z'</span><span class="p">,</span>
+          <span class="s1">'txn'</span> <span class="o">=&gt;</span> <span class="s1">'txn_1595228326662'</span><span class="p">,</span>
+          <span class="s1">'user_agent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'</span><span class="p">,</span>
+          <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'1595228326662@yandex.ru'</span><span class="p">,</span>
+          <span class="s1">'cid'</span> <span class="o">=&gt;</span> <span class="s1">'1595228326662'</span><span class="p">,</span>
+          <span class="s1">'extra'</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+          <span class="s1">'address'</span> <span class="o">=&gt;</span> <span class="s1">'7253'</span><span class="p">,</span>
+          <span class="s1">'paySource'</span> <span class="o">=&gt;</span> <span class="s1">'card'</span><span class="p">,</span>
+        <span class="p">],</span>
+      <span class="p">],</span>
+  <span class="p">]);</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"txName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P2P"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lang"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"androidVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"iosVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transaction completed successfully"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"responseData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer order has been registered, kindly share below details with them."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67d78e62-1234-4e85-af1e-4d9a0c970bb3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"walletAddr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79960085486"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"note:8791327689,order:67d78e62-2abc-4e85-af1e-4d9a0c970bb3,merch:d4b07ce7-836f-4b02-bf4a-35c491403727"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"paymentLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://oplata.qiwi.com/form/?invoice_uid=24c45735-3d1f-4708-b154-9dff6c1b6b19"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"exctrc"</span><span class="p">:</span><span class="w">   </span><span class="s2">"LU2DhCzYu5NPqJfge7YdlAGfACBbe4f1XWvvEv3eS0ootzwbwLbQTsHOpsfZgFELAx1rdAAgGyNMIh54DPd4STYiM-hBp4mDH3_ECu_7r7Iu5628y_3DXtCxHNMEmp4yLqpt--bngJTbO_8jFvW9iIybZ1NG9A8uncrTq94dWuwS0dMTnH_ov1yAAnLUYNgJXaifEdKjSIRTF1H1ISXCv5RiPI02z9Z-hOgqX7zwHmnPwDtDtSVXYxdlfD7KKReyQ93fA-WkBQX6nl3kkQ0mOhcCSu-AEIGRtxkWP59VXLpRF2ZHVme_cnwLhJ-ROj9rumhzCvOC2a8zwoxSWYucx0Nf23rB0Y_kCfFwwknf36HGgFhUa0BLT3y4gSd4vQtB3tGG0zF9dDPA_nPQw7xNu35bmyxh1s9gac_t5p6JuHbR8cQpI3IazuW_ZmVybyqhFyxko8t1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24c45735-3d1f-4708-b154-9dff6c1b6b19"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"formHtml"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;html&gt;&lt;style&gt;.loader @keyframes spin{0%100%}&lt;/style&gt; &lt;body onload=</span><span class="se">\"</span><span class="s2">document.frm1.submit()</span><span class="se">\"</span><span class="s2">&gt; &lt;h1&gt; &lt;div style=</span><span class="se">\"</span><span class="s2">text-align:center;</span><span class="se">\"</span><span class="s2">&gt; &lt;h1&gt; You will be redirected to QIWI,please don't refresh this page &lt;/h1&gt; &lt;div class=</span><span class="se">\"</span><span class="s2">loader</span><span class="se">\"</span><span class="s2">&gt;&lt;/div&gt;&lt;/div&gt;&lt;form method=</span><span class="se">\"</span><span class="s2">GET</span><span class="se">\"</span><span class="s2"> action=</span><span class="se">\"</span><span class="s2">https://oplata.qiwi.com/form/</span><span class="se">\"</span><span class="s2"> name=</span><span class="se">\"</span><span class="s2">frm1</span><span class="se">\"</span><span class="s2"> referrerpolicy=</span><span class="se">\"</span><span class="s2">unsafe-url</span><span class="se">\"</span><span class="s2"> accept-charset=</span><span class="se">\"</span><span class="s2">utf-8</span><span class="se">\"</span><span class="s2">&gt; &lt;input type=</span><span class="se">\"</span><span class="s2">hidden</span><span class="se">\"</span><span class="s2"> name=</span><span class="se">\"</span><span class="s2">invoice_uid</span><span class="se">\"</span><span class="s2"> value=24c45735-3d1f-4708-b154-9dff6c1b6b19/&gt; &lt;/form&gt; &lt;/body&gt;&lt;/html&gt;"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>API to create bill payment invoices.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -568,14 +626,69 @@
 <td>card -- payment source will be card</td>
 </tr>
 </tbody></table>
-<h2 id='merchants-wallets-list'>Merchants Wallets List</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<h2 id='merchants-wallets-list'>Merchants Wallets List</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="kn">use</span> <span class="nn">GuzzleHttp\Client</span><span class="p">;</span>
+
+  <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">();</span>
+
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+    <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="s1">'https://api.adgroup.finance/merchant/get-wallet-list'</span><span class="p">,</span>
+    <span class="p">[</span>
+      <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'Basic ajczMERmYUQzbkpYSzdvajp0U2pUZDE3RUFLYlVRcEUzbEhKcTdObktvM0FUQ08='</span><span class="p">,</span>
+        <span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+      <span class="p">],</span>
+      <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'header'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="s1">'txName'</span> <span class="o">=&gt;</span> <span class="s1">'fetchWallets'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'reqData'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="s1">'provider'</span> <span class="o">=&gt;</span> <span class="s1">'QIWI'</span><span class="p">,</span>
+        <span class="p">],</span>
+      <span class="p">],</span>
+  <span class="p">]);</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"txName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Signup"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lang"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"androidVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"iosVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transaction completed successfully"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"responseData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"wallet_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WALLET1064"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"eur"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"kzt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"rub"</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"usd"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"tel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91956163xxxx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"last_sync_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-14T13:10:03.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"qiwi_blocked"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"wallet_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WALLET1065"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"eur"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"kzt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"rub"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"usd"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"tel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91986086xxxx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"last_sync_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-14T13:10:10.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"qiwi_blocked"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>List of all wallets currently assigned to the Merchant.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
