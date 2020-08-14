@@ -1,5 +1,6 @@
 {
   "introduction": "Введение",
+  "service-data": "Авторизация запросов",
   "authentication": "Аутентификация",
   "methods": "Методы",
   "errors": "Ошибки"

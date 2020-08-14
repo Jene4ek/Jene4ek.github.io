@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="images/favicon-logo-a33d1d60.svg" rel="icon" type="image/svg" />
     <title>AD Group Api</title>
 
     <style media="screen">
@@ -279,9 +280,9 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-8fa72130.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-3e36bd23.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-dd99858b.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-071945ac.js"></script>
+      <script src="javascripts/all-efb7c051.js"></script>
 
     <script>
       $(function() { setupCodeCopy(); });
@@ -323,6 +324,22 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getting-token" class="toc-h2 toc-link" data-title="Getting token">Getting token</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#webhook" class="toc-h1 toc-link" data-title="Webhook">Webhook</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#description" class="toc-h2 toc-link" data-title="Description">Description</a>
+                  </li>
+                  <li>
+                    <a href="#adding-webhook" class="toc-h2 toc-link" data-title="Adding webhook">Adding webhook</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#methods" class="toc-h1 toc-link" data-title="Methods">Methods</a>
@@ -344,8 +361,38 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>AD Ggoup API description</p>
-<h1 id='authentication'>Authentication</h1>
+<p>API AD Group Finance позволяет автоматизировать получение информации о вашем счёте и проводить операции с его помощью.
+Все методы API доступны после регистрации в сервисе AD Group Finance.</p>
+<h1 id='authentication'>Authentication</h1><h2 id='getting-token'>Getting token</h2>
+<p>При регистрации на почту приходит письмо.<br>
+Внутри письма указаны 2 параметра (пример):<br>
+<code>Client id</code>: <code>j730DfaD3nJXK7oj</code><br>
+<code>Client secret</code>: <code>tSjTd17EAKbUQpE3lHJq7NnKo3ATCO</code>  </p>
+
+<p>Мы следуем протоколам безопасности Oauth 2.0.<br>
+Для создания токена необходимо:<br>
+1. создать сторку вида:  <code>Client id:Client secret</code><br>
+2. закодировать строку, используя <code>Base64</code>  </p>
+
+<p>Для параметров выше токен будет следующим:<br>
+<code>ajczMERmYUQzbkpYSzdvajp0U2pUZDE3RUFLYlVRcEUzbEhKcTdObktvM0FUQ08=</code></p>
+
+<p>Базовый токен предоставит вам доступ к API AD Group Finance.</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Params</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>HEADER</td>
+<td>Authorization</td>
+<td>string Basic token</td>
+</tr>
+</tbody></table>
+
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
@@ -356,8 +403,26 @@
 <blockquote>
 <p>Use your API key.</p>
 </blockquote>
-
-<p>Description</p>
+<h1 id='webhook'>Webhook</h1>
+<p>Механизм оповещения системы о событиях</p>
+<h2 id='description'>Description</h2>
+<ol>
+<li>Платежная система отправляет уведомление об успешной оплате счета<br></li>
+<li>Мы синхронизируем эту транзакцию в нашей системе<br></li>
+<li>Проверяем валидность вашего callback url<br></li>
+<li>Отправляем данные по транзакции с помощью вебхука<br></li>
+</ol>
+<h2 id='adding-webhook'>Adding webhook</h2>
+<ol>
+<li>Переходим в профиль пользователя на вкладку <code>SETTINGS</code><br>
+<img src="images/addwebhook/step1-b6d36877.png" alt="step 1" /></li>
+<li>Заполняем поля <code>URL</code> и <code>Secret</code><br>
+<img src="images/addwebhook/step2-1d7c7c5e.png" alt="step 2" /></li>
+<li>Нажимаем кнопку <code>Verify URL</code><br>
+<img src="images/addwebhook/step3-8775cd20.png" alt="step 3" /></li>
+<li>Если нет ошибок - нажимаем кнопку <code>SAVE</code>
+<img src="images/addwebhook/step4-8c5e1107.png" alt="step 4" /></li>
+</ol>
 <h1 id='methods'>Methods</h1><h2 id='bill-payments-invoice-generation'>Bill Payments Invoice generation</h2><div class="highlight"><pre class="highlight php tab-php"><code>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
