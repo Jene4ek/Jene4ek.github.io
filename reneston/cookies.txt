@@ -1,8 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-www.reneston.com	TRUE	/	FALSE	1999999999	XSRF-TOKEN	1603890630|yM0a7VGIVCvo
-www.reneston.com	TRUE	/	FALSE	1999999999	SameSite	None
-www.reneston.com	TRUE	/	FALSE	1999999999	hs	1939496597
-www.reneston.com	TRUE	/	FALSE	1999999999	svSession	c8ccdb17d95927393896fe4da504e93584b25a582fcae152a1509cd09dbf56267e43834720874e9debb3bd4ed5cf383c1e60994d53964e647acf431e4f798bcd2c24beae7a83e7cfb51b800d484d089867eba8b525abefeb793bd176c010b3f1
-www.reneston.com	TRUE	/	FALSE	1999999999	ssr-caching	cache#desc=miss#varnish=miss#dc#desc=euw3"
-
