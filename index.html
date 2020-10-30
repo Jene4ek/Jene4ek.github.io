@@ -7,11 +7,29 @@
   <!-- Removed by WebCopy --><!--<base href="https://www.reneston.com/">--><!-- Removed by WebCopy -->
   <meta name="generator" content="Wix.com Website Builder">
 
+  <style>
+    .not-display {
+      display: none !important;
+    }
+    .disabled {
+      cursor: default;
+      pointer-events: none;
+      background-color: gray !important;
+    }
+    .success-message {
+      font-size: 22px;
+      margin-top: 150px;
+      text-align: center;
+    }
+  </style>
+
   <link rel="icon" sizes="192x192" href="client/pfavico.svg">
   <link rel="shortcut icon" href="client/pfavico.svg" type="image/x-icon">
   <link rel="apple-touch-icon" href="client/pfavico.svg" type="image/x-icon">
   <!-- Safari Pinned Tab Icon -->
   <!-- <link rel="mask-icon" href="https://static.parastorage.com/client/pfavico.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- Legacy Polyfills -->
   <script src="unpkg/core-js-bundle@3.2.1/minified.js" nomodule=""></script>
@@ -27,6 +45,82 @@
         resolve()
       }
     })()
+  </script>
+
+  <script>
+    $(function () {
+      var delaySuccesMessage = 2000;
+
+      var $button = $('button[class="_1_kc0"]');
+      var $successMessage = $('div[class="success-message not-display"]');
+      var $form = $('form[id="comp-jxabh093"]');
+      var $formInputs = $form.find('input:not([type="submit"]), textarea');
+
+      function disableForm() {
+        $formInputs.prop('readOnly', true);
+        $button.addClass('disabled');
+      }
+
+      function enableForm() {
+        $formInputs.prop('readOnly', false);
+        $button.removeClass('disabled');
+      }
+
+      function displaySuccessMessage() {
+        $form.addClass('not-display');
+        $successMessage.removeClass('not-display');
+      }
+
+      function hideSuccessMessage() {
+        $form.removeClass('not-display');
+        $successMessage.addClass('not-display');
+      }
+
+      $form.submit(function(e) {
+        e.preventDefault();
+
+        disableForm();
+
+        var values = {}; 
+        $formInputs.each(function() {
+          values[this.name] = $(this).val();
+        });
+
+        if (!e.originalEvent.isTrusted || values.email || values.title) {
+          $form[0].reset();
+        } else {
+          $.ajax({
+            type: "POST",
+            url: 'add API url' + '/contact-form',
+            data: {
+              name: values.name,
+              website: values.website,
+              contacts: values.contacts,
+              message: values.message,
+            },
+            success: function() {
+              enableForm();
+              $form[0].reset();
+
+              displaySuccessMessage();
+
+              setTimeout(function() {
+                hideSuccessMessage();
+              }, delaySuccesMessage);
+            },
+            error: function(response) {
+              enableForm();
+
+              if (response && response.responseJSON) {
+                alert('Server returned an error: ' + response.responseJSON.message);
+              } else {
+                alert('Failed to submit the form.\nPlease try again later.');
+              }
+            },
+          });
+        }
+      });
+    })
   </script>
 
   <!-- Performance API Polyfills -->
@@ -74,12 +168,6 @@
 //# sourceMappingURL=https://static.parastorage.com/services/wix-thunderbolt/dist/bi-common.inline.83fa6329.chunk.min.js.map</script>
 <script data-url="https://static.parastorage.com/services/wix-thunderbolt/dist/sendFedopsLoadStarted.inline.2139fe0f.chunk.min.js">(window.webpackJsonp__wix_thunderbolt_app=window.webpackJsonp__wix_thunderbolt_app||[]).push([[69],[],[[349,2,5]]]);
 //# sourceMappingURL=https://static.parastorage.com/services/wix-thunderbolt/dist/sendFedopsLoadStarted.inline.2139fe0f.chunk.min.js.map</script>
-
-  <!-- Sentry -->
-  <script id="sentry">(function(c,t,u,n,p,l,y,z,v){function e(b){if(!w){w=!0;var d=t.getElementsByTagName(u)[0],a=t.createElement(u);a.src=z;a.crossorigin="anonymous";a.addEventListener("load",function(){try{c[n]=q;c[p]=r;var a=c[l],d=a.init;a.init=function(a){for(var b in a)Object.prototype.hasOwnProperty.call(a,b)&&(v[b]=a[b]);d(v)};B(b,a)}catch(A){console.error(A)}});d.parentNode.insertBefore(a,d)}}function B(b,d){try{for(var a=0;a<b.length;a++)if("function"===typeof b[a])b[a]();var f=m.data,g=!1,h=!1;for(a=0;a<f.length;a++)if(f[a].f){h=
-            !0;var e=f[a];!1===g&&"init"!==e.f&&d.init();g=!0;d[e.f].apply(d,e.a)}!1===h&&d.init();var k=c[n],l=c[p];for(a=0;a<f.length;a++)f[a].e&&k?k.apply(c,f[a].e):f[a].p&&l&&l.apply(c,[f[a].p])}catch(C){console.error(C)}}for(var g=!0,x=!1,k=0;k<document.scripts.length;k++)if(-1<document.scripts[k].src.indexOf(y)){g="no"!==document.scripts[k].getAttribute("data-lazy");break}var w=!1,h=[],m=function(b){(b.e||b.p||b.f&&-1<b.f.indexOf("capture")||b.f&&-1<b.f.indexOf("showReportDialog"))&&g&&e(h);m.data.push(b)};
-      m.data=[];c[l]={onLoad:function(b){h.push(b);g&&!x||e(h)},forceLoad:function(){x=!0;g&&setTimeout(function(){e(h)})}};"init addBreadcrumb captureMessage captureException captureEvent configureScope withScope showReportDialog".split(" ").forEach(function(b){c[l][b]=function(){m({f:b,a:arguments})}});var q=c[n];c[n]=function(b,d,a,f,e){m({e:[].slice.call(arguments)});q&&q.apply(c,arguments)};var r=c[p];c[p]=function(b){m({p:b.reason});r&&r.apply(c,arguments)};g||setTimeout(function(){e(h)})})(window,document,
-            "script","onerror","onunhandledrejection","Sentry","14370afcdc17429f9e418d5ffbd0334a","https://browser.sentry-cdn.com/5.21.4/bundle.min.js",{"dsn":"https://14370afcdc17429f9e418d5ffbd0334a@sentry.wixpress.com/277"});</script>
 
   <!-- Viewer Model -->
   <script>
@@ -565,7 +653,53 @@ unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+
 AND WHAT WE DO?</span></h2></div><div id="comp-ifm7h3jo" class="_1Z_nJ" data-testid="richTextElement"><p class="font_8" style="font-size:17px"><span class="color_11"><span style="font-size:17px">We are a team of enthusiasts whose focus is to deliver outstanding service&nbsp;<br>
 to any customer we have. We are young but energetic. </span></span></p>
 
-<p class="font_8" style="font-size:17px"><span class="color_11"><span style="font-size:17px">The cryptocurrency payment processing system is a universal software solution &ndash; a tool designed to provide fast and secure transactions, deposits and withdrawals of cryptocurrency funds, as well as maintenance of mutual settlements of any type of online cryptocurrency.</span></span></p></div></div></div></div></div></section><div id="comp-ifm7h3ju" class="_3nfU6 ignore-focus" tabindex="-1" role="region" aria-label="ABOUT US"> </div><section id="comp-igj7s6l8"><a name="contactus"></a><div id="bgLayers_comp-igj7s6l8" class="_3_wbk"><div data-testid="colorUnderlay" class="P0kib FgquG"></div><div id="bgMedia_comp-igj7s6l8" class="_33YMf"></div></div><div data-testid="columns" class="_3BQmz"><div id="mediaiskgjyue23" class="_1HpZ_"><div id="bgLayers_mediaiskgjyue23" class="_3_wbk"><div data-testid="colorUnderlay" class="P0kib FgquG"></div><div id="bgMedia_mediaiskgjyue23" class="_33YMf"></div></div><div data-mesh-id="mediaiskgjyue23inlineContent" data-testid="inline-content" class=""><div data-mesh-id="mediaiskgjyue23inlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-ig9iw8ac" class="_2pwC9"></div><div id="comp-ifm7h3k5" class="_1Z_nJ" data-testid="richTextElement"><h2 class="font_2" style="line-height:1em;font-size:80px">CONTACT US</h2></div><div id="comp-jxabh07t" class="_3e89g"><div data-mesh-id="comp-jxabh07tinlineContent" data-testid="inline-content" class=""><div data-mesh-id="comp-jxabh07tinlineContent-gridContainer" data-testid="mesh-container-content"><form id="comp-jxabh093" class="Cdk9j"><div data-mesh-id="comp-jxabh093inlineContent" data-testid="inline-content" class=""><div data-mesh-id="comp-jxabh093inlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-jxabh0a0" class="_31qkb"><label for="input_comp-jxabh0a0" class="_2UrhM"></label><div class="Lc5OM"><input type="text" id="input_comp-jxabh0a0" class="A1_tY has-custom-focus" value="" placeholder="Name" maxlength="100"></div></div><div id="comp-jxabh0b6" class="_31qkb PEjbJ"><label for="input_comp-jxabh0b6" class="_2UrhM"></label><div class="Lc5OM"><input type="text" id="input_comp-jxabh0b6" class="A1_tY has-custom-focus" value="" placeholder="Company" required=""></div></div><div id="comp-jxabh0an" class="_31qkb"><label for="input_comp-jxabh0an" class="_2UrhM"></label><div class="Lc5OM"><input type="email" id="input_comp-jxabh0an" class="A1_tY has-custom-focus" value="" placeholder="Email" maxlength="250"></div></div><div id="comp-jxabh0bl" class="_42POZ _2PyT-"><label for="textarea_comp-jxabh0bl" class="_2SAi8"></label><textarea id="textarea_comp-jxabh0bl" class="_1qIig has-custom-focus" placeholder="Message" required=""></textarea></div><div id="comp-jxabh0c9" aria-disabled="false" class="_22oPj"><button data-testid="buttonElement" class="_1_kc0"><span class="_3fUtn">Submit</span></button></div></div></div></form></div></div></div><div id="comp-ifm7h3k6" class="_1Z_nJ" data-testid="richTextElement"><h6 class="font_6" style="font-size:16px"><span class="color_15"><span style="letter-spacing:0.09em">&hellip; then you knocked the right door.</span></span></h6></div><div id="comp-ifya0jll" class="_1Z_nJ" data-testid="richTextElement"><p class="font_7" style="font-size:19px; line-height:1.4em"><span style="font-size:19px"><span class="color_15"><span style="font-style:normal"><span style="font-family:raleway,sans-serif"><span style="font-weight:400">Harju maakond, Tallinn, Kesklinna linnaosa, Tartu mnt 83-701, 10115</span></span></span></span></span></p></div></div></div></div></div></section><div id="comp-igl58cjj" class="_3nfU6 ignore-focus" tabindex="-1" role="region" aria-label="CONTACT"> </div><div data-mesh-id="Containerjt80hinlineContent-wedge-3"></div><div data-mesh-id="Containerjt80hinlineContent-wedge-7"></div></div></div></div><div id="PinnedLayerjt80h" class="_1w0tU"><nav id="comp-ifm7h3jp1" aria-label="Site" class="_1x2Q2"><ul class="_2wDdK"><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3jt1" data-anchor-comp-id="comp-ifm7h3jt" href="./#home" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3jt1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3jt1" class="_1iGPj">HOME</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3js1" data-anchor-comp-id="comp-ifm7h3js" href="./#ourservices" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3js1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3js1" class="_1iGPj">SERVICES</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3ju1" data-anchor-comp-id="comp-ifm7h3ju" href="./#aboutus" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3ju1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3ju1" class="_1iGPj">ABOUT US</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-igl58cjk" data-anchor-comp-id="comp-igl58cjj" href="./#contactus" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-igl58cjk"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-igl58cjk" class="_1iGPj">CONTACT</span></span></a></li></ul></nav></div></div></div></div></main><div id="comp-jqqppefn-pinned-layer" class="_1w0tU"><div id="comp-jqqppefn" class="_3g8uH oMCVo"><iframe class="yuKeh" title="Wix Chat" aria-label="Wix Chat" scrolling="no" allowfullscreen="" allowtransparency="true" frameborder="0" allow="autoplay;camera;microphone;geolocation;vr"></iframe></div></div><footer id="SITE_FOOTER" class="_11CDm"><div class="_1nb6T"><div class="mTQQp"></div></div><div class="_2WCQx"><div class="_3l5s9"><div class="_1VpWy"></div></div><div class="_3sXYI"><div data-mesh-id="SITE_FOOTERinlineContent" data-testid="inline-content" class=""><div data-mesh-id="SITE_FOOTERinlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-ikgp3ypj" class="_1Z_nJ" data-testid="richTextElement"><p class="font_8" style="font-size:14px; text-align:center"><span style="font-size:14px"><span class="color_11">This site is a property of Reneston OU, company registered in Estonia, no. 12375705, financial services, providing services of exchanging a virtual currency against a fiat currency with no. FVR000004; financial services, providing a virtual currency wallet service no. FFA000429; doing business at Harju maakond, Tallinn, Kesklinna linnaosa, Tartu mnt 83-701, 10115.</span></span></p>
+<p class="font_8" style="font-size:17px"><span class="color_11"><span style="font-size:17px">The cryptocurrency payment processing system is a universal software solution &ndash; a tool designed to provide fast and secure transactions, deposits and withdrawals of cryptocurrency funds, as well as maintenance of mutual settlements of any type of online cryptocurrency.</span></span></p></div></div></div></div></div></section><div id="comp-ifm7h3ju" class="_3nfU6 ignore-focus" tabindex="-1" role="region" aria-label="ABOUT US"> </div><section id="comp-igj7s6l8"><a name="contactus"></a><div id="bgLayers_comp-igj7s6l8" class="_3_wbk"><div data-testid="colorUnderlay" class="P0kib FgquG"></div><div id="bgMedia_comp-igj7s6l8" class="_33YMf"></div></div><div data-testid="columns" class="_3BQmz"><div id="mediaiskgjyue23" class="_1HpZ_"><div id="bgLayers_mediaiskgjyue23" class="_3_wbk"><div data-testid="colorUnderlay" class="P0kib FgquG"></div><div id="bgMedia_mediaiskgjyue23" class="_33YMf"></div></div><div data-mesh-id="mediaiskgjyue23inlineContent" data-testid="inline-content" class=""><div data-mesh-id="mediaiskgjyue23inlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-ig9iw8ac" class="_2pwC9"></div><div id="comp-ifm7h3k5" class="_1Z_nJ" data-testid="richTextElement"><h2 class="font_2" style="line-height:1em;font-size:80px">CONTACT US</h2></div><div id="comp-jxabh07t" class="_3e89g"><div data-mesh-id="comp-jxabh07tinlineContent" data-testid="inline-content" class=""><div data-mesh-id="comp-jxabh07tinlineContent-gridContainer" data-testid="mesh-container-content">
+<form id="comp-jxabh093" class="Cdk9j">
+  <div data-mesh-id="comp-jxabh093inlineContent" data-testid="inline-content" class="">
+    <div data-mesh-id="comp-jxabh093inlineContent-gridContainer" data-testid="mesh-container-content">
+      <label>
+        <input class="not-display" aria-hidden="true" tabindex="-1" name="title" type="text" />
+      </label>
+      <div id="comp-jxabh0a0" class="_31qkb">
+        <label for="input_comp-jxabh0a0" class="_2UrhM">
+        </label>
+        <div class="Lc5OM">
+          <input type="text" id="input_comp-jxabh0a0" class="A1_tY has-custom-focus" value="" placeholder="Name" name="name" maxlength="100">
+        </div>
+      </div>
+      <div id="comp-jxabh0b6" class="_31qkb PEjbJ">
+        <label for="input_comp-jxabh0b6" class="_2UrhM">    
+        </label><div class="Lc5OM">
+          <input type="text" id="input_comp-jxabh0b6" class="A1_tY has-custom-focus" value="" placeholder="Website" name="website" required="">
+        </div>
+      </div>
+      <div id="comp-jxabh0an" class="_31qkb">
+        <label for="input_comp-jxabh0an" class="_2UrhM">          
+        </label>
+        <div class="Lc5OM">
+          <input type="email" id="input_comp-jxabh0an" class="A1_tY has-custom-focus" value="" placeholder="Email" name="contacts" maxlength="250">
+        </div>
+      </div>
+      <label>
+        <input class="not-display" aria-hidden="true" tabindex="-1" name="email" type="text" />
+      </label>
+      <div id="comp-jxabh0bl" class="_42POZ _2PyT-">
+        <label for="textarea_comp-jxabh0bl" class="_2SAi8">
+        </label>
+        <textarea id="textarea_comp-jxabh0bl" class="_1qIig has-custom-focus" placeholder="Message" name="message" required=""></textarea>
+      </div>
+      <div id="comp-jxabh0c9" aria-disabled="false" class="_22oPj">
+        <button data-testid="buttonElement" class="_1_kc0">
+          <span class="_3fUtn">Submit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="success-message not-display">
+  Your inquery has been sent!
+</div>
+</div></div></div><div id="comp-ifm7h3k6" class="_1Z_nJ" data-testid="richTextElement"><h6 class="font_6" style="font-size:16px"><span class="color_15"><span style="letter-spacing:0.09em">&hellip; then you knocked the right door.</span></span></h6></div><div id="comp-ifya0jll" class="_1Z_nJ" data-testid="richTextElement"><p class="font_7" style="font-size:19px; line-height:1.4em"><span style="font-size:19px"><span class="color_15"><span style="font-style:normal"><span style="font-family:raleway,sans-serif"><span style="font-weight:400">Harju maakond, Tallinn, Kesklinna linnaosa, Tartu mnt 83-701, 10115</span></span></span></span></span></p></div></div></div></div></div></section><div id="comp-igl58cjj" class="_3nfU6 ignore-focus" tabindex="-1" role="region" aria-label="CONTACT"> </div><div data-mesh-id="Containerjt80hinlineContent-wedge-3"></div><div data-mesh-id="Containerjt80hinlineContent-wedge-7"></div></div></div></div><div id="PinnedLayerjt80h" class="_1w0tU"><nav id="comp-ifm7h3jp1" aria-label="Site" class="_1x2Q2"><ul class="_2wDdK"><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3jt1" data-anchor-comp-id="comp-ifm7h3jt" href="./#home" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3jt1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3jt1" class="_1iGPj">HOME</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3js1" data-anchor-comp-id="comp-ifm7h3js" href="./#ourservices" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3js1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3js1" class="_1iGPj">SERVICES</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-ifm7h3ju1" data-anchor-comp-id="comp-ifm7h3ju" href="./#aboutus" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-ifm7h3ju1"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-ifm7h3ju1" class="_1iGPj">ABOUT US</span></span></a></li><li><a data-testid="linkElement" data-anchor="dataItem-igl58cjk" data-anchor-comp-id="comp-igl58cjj" href="./#contactus" target="_self" class="_3LyPT" aria-labelledby="anchor-label_dataItem-igl58cjk"><svg class="_3IY9P" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg><span class="_3pEbt"><span id="anchor-label_dataItem-igl58cjk" class="_1iGPj">CONTACT</span></span></a></li></ul></nav></div></div></div></div></main><div id="comp-jqqppefn-pinned-layer" class="_1w0tU"><div id="comp-jqqppefn" class="_3g8uH oMCVo"><iframe class="yuKeh" title="Wix Chat" aria-label="Wix Chat" scrolling="no" allowfullscreen="" allowtransparency="true" frameborder="0" allow="autoplay;camera;microphone;geolocation;vr"></iframe></div></div><footer id="SITE_FOOTER" class="_11CDm"><div class="_1nb6T"><div class="mTQQp"></div></div><div class="_2WCQx"><div class="_3l5s9"><div class="_1VpWy"></div></div><div class="_3sXYI"><div data-mesh-id="SITE_FOOTERinlineContent" data-testid="inline-content" class=""><div data-mesh-id="SITE_FOOTERinlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-ikgp3ypj" class="_1Z_nJ" data-testid="richTextElement"><p class="font_8" style="font-size:14px; text-align:center"><span style="font-size:14px"><span class="color_11">This site is a property of Reneston OU, company registered in Estonia, no. 12375705, financial services, providing services of exchanging a virtual currency against a fiat currency with no. FVR000004; financial services, providing a virtual currency wallet service no. FFA000429; doing business at Harju maakond, Tallinn, Kesklinna linnaosa, Tartu mnt 83-701, 10115.</span></span></p>
 
 <p class="font_8" style="font-size:14px; text-align:center"><span style="font-size:14px"><span class="color_11">All rights reserved.</span></span></p></div></div></div></div></div></footer></div></div><div id="SCROLL_TO_BOTTOM" class="_3nfU6 ignore-focus" tabindex="-1" role="region" aria-label="bottom of page"> </div></div></div>
 
